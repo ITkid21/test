@@ -1,144 +1,473 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Open Love Letter</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WAIT FOR IT...</title>
+  <div id="countdownGate">
+    <h1>🎉 wait for it 😁😉🤭🤫🎉</h1>
+    <p>Just a little longer until the magic begins...!</p>
+    <div class="timer">
+      <span id="days">00</span> :
+      <span id="hours">00</span> :
+      <span id="minutes">00</span> :
+      <span id="seconds">00</span>
+    </div>
+  </div>
   <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #ef69bc;
-      text-align: center;
-      padding: 20px;
-    }
+    #countdownGate {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffe6f0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  color: #d63384;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
 
-    .open-button {
-      background-color: #ff69b4;
-      border: none;
-      color: white;
-      padding: 15px 30px;
-      font-size: 18px;
+#countdownGate h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+#countdownGate p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.timer {
+  font-size: 2.5em;
+  background-color: #ffd6e8;
+  padding: 20px 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+  display: flex;
+  gap: 10px;
+}
+
+#content {
+  display: none;
+}
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #d85c88;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    h2 {
+      font-size: 2.5em;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .photo-grid img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    ul {
+      text-align: left;
+      line-height: 1.8;
+    }
+    .tap-reveal-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .tap-box {
+      background-color: #fff0f5;
+      color: #d63384;
+      border: 2px dashed #ff69b4;
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
       cursor: pointer;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      font-size: 1.2em;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .tap-box.revealed {
+      background-color: #ff69b4;
+      color: white;
+    }
+    .cake {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #ffe6f0;
+      padding: 30px;
+      border-radius: 20px;
+    }
+    .cake-decoration {
+      font-size: 1.2em;
+      color: #d63384;
+    }
+    .cake-actions {
+      margin-top: 20px;
+    }
+    .cake-actions a {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 1em;
+      margin: 0 10px;
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .letter-buttons a {
+      padding: 15px 25px;
+      background-color: #ff69b4;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 1.1em;
       transition: background-color 0.3s;
     }
-
-    .open-button:hover {
+    .letter-buttons a:hover {
       background-color: #ff1493;
     }
+    .game-buttons {
+            position: fixed;
+            top: 30%;
+            right: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
 
-    #loveLetter {
-      display: none;
-      margin-top: 20px;
-      padding: 20px;
-      background-color: #ffe4e1;
-      border-radius: 10px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .password-container {
-      background-color: #fff0f5;
-      padding: 30px;
-      border-radius: 12px;
-      text-align: center;
-      max-width: 400px;
-      margin: 100px auto;
-      box-shadow: 0 0 12px rgba(0,0,0,0.1);
-    }
-
-    input[type="password"] {
-      padding: 10px;
-      border: 1px solid #d63384;
-      border-radius: 8px;
-      width: 80%;
-    }
-
-    #checkPass {
-      background-color: #d63384;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
   </style>
 </head>
 <body>
-
-  <h1>Welcome to Your Love Letter Page</h1>
-
-  <!-- Password screen -->
-  <div id="passwordGate" class="password-container">
-    <h2>🔐 Enter Your Special Password</h2>
-    <input type="password" id="passwordInput" placeholder="Password">
-    <br><br>
-    <button id="checkPass">Unlock Letter</button>
-    <p id="errorMsg" style="color: red;"></p>
-  </div>
-
-  <!-- Love letter (initially hidden) -->
-  <div id="loveLetter">
-    <p>Click the button below to open your love letter!</p>
-    <button class="open-button" onclick="openLetter()">Open Letter</button>
-
-    <div id="letterContent" style="display: none;">
-      <h2>Letter to You</h2>
-      <p>Dear Sonal,</p>
-      <p>text</p>
-      <p>With all my love,</p>
-      <p><em>person3</em></p>
-    </div>
-  </div>
-
+  <audio id="bgMusic" loop>
+    <source src="Tu Kitni Achhi Hai - Raja Aur Runk 320 Kbps.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  
   <script>
-    function checkPassword() {
-      const correctPassword = "momlove2025"; // Change this password as needed
-      const userInput = document.getElementById("passwordInput").value;
-
-      if (userInput === correctPassword) {
-        document.getElementById("passwordGate").style.display = "none";
-        document.getElementById("loveLetter").style.display = "block";
-      } else {
-        document.getElementById("errorMsg").innerText = "Incorrect password. Please try again.";
-      }
+    // Wait for user interaction to play the music
+    function startMusicOnInteraction() {
+      const bgMusic = document.getElementById("bgMusic");
+      bgMusic.play().catch(e => {
+        console.log("Autoplay failed:", e);
+      });
+      document.removeEventListener("click", startMusicOnInteraction);
+      document.removeEventListener("touchstart", startMusicOnInteraction);
     }
-
-    document.getElementById("checkPass").addEventListener("click", checkPassword);
-
-    function openLetter() {
-      const letterDiv = document.getElementById("letterContent");
-      letterDiv.style.display = (letterDiv.style.display === "none") ? "block" : "none";
-    }
-
-    // Heart rain 🎂 effect
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.innerText = "💌";
-      heart.style.position = "fixed";
-      heart.style.top = "-50px";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = Math.random() * 20 + 10 + "px";
-      heart.style.animation = "falling 4s linear infinite";
-      document.body.appendChild(heart);
-
-      setTimeout(() => {
-        heart.remove();
-      }, 4000);
-    }
-
-    setInterval(createHeart, 200);
-
-    const style = document.createElement("style");
-    style.innerHTML = `
-      @keyframes falling {
-        0% { transform: translateY(0); opacity: 1; }
-        100% { transform: translateY(100vh); opacity: 0; }
-      }
-    `;
-    document.head.appendChild(style);
+  
+    // Add listeners for first interaction
+    document.addEventListener("click", startMusicOnInteraction);
+    document.addEventListener("touchstart", startMusicOnInteraction);
   </script>
+  <div id="content">
+    <section id="intro">
+      <h2>Welcome to Your Special Day, Mom! 💖</h2>
+      <h3>Yeh chhoti si webpage ek pyaara sa gift hai aapke special din ke liye.<br>
+        Isme milenge aapko dil se likhe gaye letters, kuch purani yaadon ke photos,<br>
+        aur kuch special shabdon ka jadoo...<br>
+        Lekin, sab dekhne ke liye ek chhoti si riddle solve karni padegi 😉🧩<br><br>
+        
+        Waise hi jaise aap har moment ko magical bana deti ho,<br>
+        maine socha aapka birthday surprise bhi thoda fun ho! ✨🎁<br>
+        
+        With all my love,<br>
+        Happy Birthday, Mumma! 🎉 </h3>
+    </section>
 
+    <section id="gallery">
+      <h2>📸 Photo Gallery</h2>
+      <div class="photo-grid">
+        <img src="IMG-20240921-WA0019.jpg" alt="Memory 1" />
+        <img src="IMG20240126215546.jpg" alt="Memory 2" />
+        <img src="IMG20240127181616.jpg" alt="Memory 3" />
+        <img src="IMG20240917123152.jpg" alt="Memory 4" /><br>
+        <img src="Screenshot_2023-12-26-21-32-24-79_99c04817c0de5652397fc8b56c3b3817.jpg" alt="Memory 5" />
+        <img src="IMG_20250414_194141.jpg" alt="Memory 4" />
+        <img src="1f81d7b7-238b-45e6-8a7b-71febdc132e3.jpg" alt="Memory 4" />
+        <img src="IMG_20250126_215053893_HDR_AE~2.jpg" alt="Memory 4" />
+      </div>
+    </section>
+
+    <section id="cake-deco">
+      <h2>🎂 Cake Decoration Station</h2>
+      <div class="cake">
+        <img src="download.jpg" alt="Birthday Cake" />
+        <div class="cake-decoration">Sprinkled with love, candles of joy, and a big frosting of hugs! 💕🕯️</div>
+        <div class="cake-actions">
+          <a href="cake.html">Go to Cake Cutting 🍰</a>
+        </div>
+      </div>
+    </section>
+    <section id="family-letters">
+      <h2>✉️ Special WORDS</h2>
+      <div class="letter-buttons">
+        <a href="letter1.html" target="_blank">poem for you</a><br><br><br>
+        <a href="Aadi.html" target="_blank">Letter from AADI</a><br><br><br>
+        <a href="letter3.html" target="_blank">letter fron BUA</a><br><br><br>
+        <a href="letter4.html" target="_blank">letter fron DINNI ANTY</a><br><br><br>
+        
+        <!-- Add more buttons as needed -->
+      </div>
+    </section>
+
+    <section id="tap-reveal">
+      <h2>🎁 Tap to Reveal Little Surprises!</h2>
+      <div class="tap-reveal-container">
+        <div class="tap-box" onclick="this.classList.add('revealed'); this.innerText='You make the best food in the world!'">Tap me!</div>
+        <div class="tap-box" onclick="this.classList.add('revealed'); this.innerText='Your smile brightens up every room!'">Tap me!</div>
+        <div class="tap-box" onclick="this.classList.add('revealed'); this.innerText='You are the glue that holds us all together.'">Tap me!</div>
+        <div class="tap-box" onclick="this.classList.add('revealed'); this.innerText='We love you more than words can say.'">Tap me!</div>
+      </div>
+    </section>
+    <section id="extras">
+      <div id="riddleSection" style="margin-top: 40px; background: #fff0f5; padding: 20px; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.1); width: 80%; margin-left: auto; margin-right: auto;">
+        <h3 style="color: #d63384;">🔐 Riddle Time!</h3>
+        <pre id="riddleText" style="text-align: left; white-space: pre-wrap; font-size: 16px; color: #333;"></pre>
+    </div>
+    
+    <div id="riddle" style="font-size: 20px; margin-top: 40px; color: white; font-family: 'Courier New', Courier, monospace; white-space: pre-line; text-align: center;"></div>
+
+<script>
+    const riddleText = `Sabse khaas, sabse pyaari,
+Ghar ki roshni, sabki saheli.
+
+Papa ke liye jo hai sabse cute,
+Naam jiska hai thoda sa short and mute.
+
+Na koi ‘Mom’, na ‘Maa’, na ‘Ammi’ keh ke bulate,
+Ek pyaara sa naam, sirf papa hi jaane.
+
+Socho zara, jab wo pyaar se bulate hain unhe,
+Wo ek chhoti si aawaaz hoti hai… "________" ❤️`;
+
+    let index = 0;
+    const speed = 40; // typing speed in ms
+
+    function typeRiddle() {
+        if (index < riddleText.length) {
+            document.getElementById("riddle").innerHTML += riddleText.charAt(index);
+            index++;
+            setTimeout(typeRiddle, speed);
+        }
+    }
+
+    // Trigger animation after page load
+    window.onload = () => {
+        setTimeout(typeRiddle, 1000); // delay typing start
+    };
+</script>
+
+    
+    
+    <div class="love-tree">
+      <div class="love-tree">
+        <h3 style="color:white;">🌳 Our Magical Love Tree</h3>
+        <div class="tree-container">
+          <div class="branch left"></div>
+          <div class="branch right"></div>
+          <div class="tree-trunk"></div>
+          <div class="heart-leaves">
+            <div class="heart" onclick="revealHeart(this, 'You are our sunshine! ☀️')">Tap me</div>
+            <div class="heart" onclick="revealHeart(this, 'Your hugs are magical 🤗')">Tap me</div>
+            <div class="heart" onclick="revealHeart(this, 'Endless love 💖')">Tap me</div>
+            <div class="heart" onclick="revealHeart(this, 'You brighten our world 🌟')">Tap me</div>
+            <div class="heart" onclick="revealHeart(this, 'We cherish you forever 🫶')">Tap me</div>
+          </div>
+        </div>
+      </div>
+      
+      </div>
+      <div class="tree-trunk"></div>
+    </div>
+  </section>
+  <script>
+    
+  function revealHeart(element, message) {
+    element.classList.add('revealed');
+    element.innerText = message;
+  }
+</script>
+<style>
+  .love-tree {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  animation: fadeIn 2s ease-in;
+}
+
+.tree-container {
+  position: relative;
+  width: 280px;
+  height: 350px;
+}
+
+.tree-trunk {
+  position: absolute;
+  bottom: 4;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 120px;
+  background-color: #8B4513;
+  border-radius: 10px;
+  z-index: 1;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.branch {
+  position: absolute;
+  width: 4px;
+  height: 100px;
+  background-color: #8B4513;
+  transform-origin: bottom center;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+.branch.left {
+  transform: translateX(-50%) rotate(-30deg);
+}
+
+.branch.right {
+  transform: translateX(-50%) rotate(30deg);
+}
+
+.heart-leaves {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  z-index: 2;
+}
+
+.heart {
+  background-color: #ff6f91;
+  color: white;
+  padding: 15px;
+  border-radius: 50%;
+  font-size: 0.9em;
+  width: 70px;
+  height: 70px;
+  text-align: center;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.4s ease, background-color 0.4s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.heart:hover {
+  transform: scale(1.1) rotate(-3deg);
+  background-color: #d63384;
+}
+
+.heart::before {
+  content: '💗';
+  font-size: 1.4em;
+  position: absolute;
+  top: -18px;
+}
+
+.heart.revealed {
+  background-color: #d63384;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+</style>  
+  <script>
+        // Function to create heart rain effect
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.innerText = "💗";
+            heart.style.position = "fixed";
+            heart.style.top = "-50px";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = Math.random() * 20 + 10 + "px";
+            heart.style.animation = "falling 6s linear infinite";
+            document.body.appendChild(heart);
+    
+            setTimeout(() => {
+                heart.remove();
+            }, 4000);
+        }
+    
+        setInterval(createHeart, 200);
+    
+        // Falling animation for hearts
+        const style = document.createElement("style");
+        style.innerHTML = `
+            @keyframes falling {
+                0% { transform: translateY(0); opacity: 1; }
+                100% { transform: translateY(100vh); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+    <script>
+      const targetDate = new Date("2025-04-14T20:06:00").getTime(); // Set birthday date/time here
+    
+      function updateGateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+    
+        if (distance <= 0) {
+          document.getElementById("countdownGate").style.display = "none";
+          document.getElementById("content").style.display = "block";
+          return;
+        }
+    
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+        document.getElementById("days").innerText = String(days).padStart(2, '0');
+        document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+        document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+        document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+      }
+    
+      updateGateCountdown();
+      setInterval(updateGateCountdown, 1000);
+    </script>
+    
+  
+    
+    
+  
+  </div>
 </body>
 </html>
